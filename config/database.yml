@@ -1,0 +1,15 @@
+development: &postgres
+  adapter: postgresql
+  encoding: unicode
+  database: TCNS_2
+  pool: 25
+  username: postgres
+  password: tray#ram1#
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: myapp_test
+  pool: 5
+  username: postgres
+  password: tray#ram1#
