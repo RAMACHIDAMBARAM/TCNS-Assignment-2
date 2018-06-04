@@ -1,0 +1,36 @@
+<h1 style ="position: relative; padding-left: 435px;">Order To Delivery</h1>
+
+<h2>Import Products</h2>
+
+<p>
+  Download:
+  <%= link_to "CSV", products_path(format: "csv") %> |
+</p>
+
+<%= form_tag import_products_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
+
+<h4> 
+	NOTICE: Since deploying it in cloud as a web all these conditions are to be taken care
+	<br>
+	<ul>
+		<li> Upload only Order_Feed & Last mile or similar kind of sheet which is sufficient to generate this details</li>
+		<br>
+<li>
+As its a free hosting site, Please Upload max of 250 records per import.
+else the server will be timed out.
+</li>
+<br>
+<li>Assumption: sheets have `order code` one has `Order #` and `Transaction ID`.Here these 3 attributes have same length. Even though `Transaction ID` is different from other two in real time , Here, for making relation between each sheet I am considering them as same attribute with different header. </li>
+<br>
+<li>While uploading a sheet have check whether your sheet has `order code` or `Order #` or `Transaction ID` . Else it will through error.</li>
+<br>
+<li>DB can store only 10,000 records so please be aware of it</li>
+<br>
+<li>Due to unavailability of `ruby gem` for reading all formats, Here you can only upload .xlsx (the latest format of excel in MS) so, please convert your file and import, else it will through error. </li>
+<br>
+<li>Before Downloading the CSV/xls please feed the DB by uploading the input sheet. Initially the DB has no records.</li>
+<br>
+</h4>
