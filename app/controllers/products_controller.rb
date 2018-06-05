@@ -9,8 +9,8 @@ class ProductsController < ApplicationController
     end
   end
 
-	def import
-	  file = params[:file]
+  def import
+    file = params[:file]
       spreadsheet = Roo::Spreadsheet.open(file)
 
       header = spreadsheet.row(1)
@@ -38,28 +38,28 @@ class ProductsController < ApplicationController
       r = row["transaction date"]
 
       if row.key?("coupon_code")
-      	s = row["coupon_code"]
- 	 end
+        s = row["coupon_code"]
+   end
 
- 	 if row.key?("coupon value")
+   if row.key?("coupon value")
        s = row["coupon value"]
     end
 
     if row.key?("Type")
-    	t = row["Type"]
+      t = row["Type"]
     end
     if row.key?("payment type")
-    	t = row["payment type"]
+      t = row["payment type"]
     end
 
 
 
        if row.key?("Amount")
-     	 u = row["Amount"]
- 	 end
- 	 if row.key?("amount payable")
- 	 	u = row["amount payable"]
- 	 end
+       u = row["Amount"]
+   end
+   if row.key?("amount payable")
+    u = row["amount payable"]
+   end
 
      
       if row.key?("order code")
@@ -69,26 +69,26 @@ class ProductsController < ApplicationController
         a = row["Order #"]
     end
       if row.key?("Transaction ID")
-      	a = row["Transaction ID"]
+        a = row["Transaction ID"]
       end
 
          import = Product.where(order_no: a , price: l , product_mrp: j , tax: m , sale_discount: k  , 
-         	gross_amount: n , amount_payable: u , bank_name: b , e_payment_type:  c , transaction_date: r , Sale_tax_form_acknowledgement_no: e , mps_amount: d)
+          gross_amount: n , amount_payable: u , bank_name: b , e_payment_type:  c , transaction_date: r , Sale_tax_form_acknowledgement_no: e , mps_amount: d)
         
-	      if import.exists?
-	         import.update(amount_payable: u)
+        if import.exists?
+           import.update(amount_payable: u)
 
-	      else
-	           y = Product.new(order_no: a , way_bill: h , invoice_code: i , client: g ,
-	         customer_email: q , invoice_zone: f , price: l , product_mrp: j , tax: m , sale_discount: k ,
-	          coupon_value: s , gross_amount: n ,  amount_payable: u , e_payment_type: c , payment_status: o ,  bank_name: b , payment_type: t , transaction_date: r ,
-	            Sale_tax_form_acknowledgement_no: e , mps_amount: d)
-	        
-	          y.save
-	         
-	      end
+        else
+             y = Product.new(order_no: a , way_bill: h , invoice_code: i , client: g ,
+           customer_email: q , invoice_zone: f , price: l , product_mrp: j , tax: m , sale_discount: k ,
+            coupon_value: s , gross_amount: n ,  amount_payable: u , e_payment_type: c , payment_status: o ,  bank_name: b , payment_type: t , transaction_date: r ,
+              Sale_tax_form_acknowledgement_no: e , mps_amount: d)
+          
+            y.save
+           
+        end
 
       end
       redirect_to root_url, notice: "Imported Successfully" and return
-	end	
+  end 
 end
